@@ -5,13 +5,17 @@
 #include <unistd.h>     // needed to sleep
 #include <math.h>
 #include <stdio.h>
+#include <iostream>
+#include <unistd.h>
+#include <sys/types.h>
+#include <signal.h>
 #include "SOIL.h"
 
+
 #define ESCAPE 27
-int texture[9];
-
+int texture[13];
+//pid_t pid = fork();
 int window;
-
 int textura_fundo = 0;
 int clique1 = 0;
 float angulo_mirax = 0;
@@ -91,7 +95,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[6] = SOIL_load_OGL_texture
         (
-        "img/samara.jpg",
+        "img/fundo7.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -102,7 +106,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[7] = SOIL_load_OGL_texture
         (
-        "img/exorcist.jpg",
+        "img/samara.jpg",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -113,7 +117,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[8] = SOIL_load_OGL_texture
         (
-        "img/penny.png",
+        "img/exorcist.jpg",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -124,13 +128,57 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[9] = SOIL_load_OGL_texture
         (
-        "img/samuel2.png",
+        "img/penny.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
         );
 
     if(texture[9] == 0)
+        return 0;
+
+    texture[10] = SOIL_load_OGL_texture
+        (
+        "img/samuel2.png",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+
+    if(texture[10] == 0)
+        return 0;
+
+    texture[11] = SOIL_load_OGL_texture
+        (
+        "img/pressstart.png",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+
+    if(texture[11] == 0)
+        return 0;
+
+    texture[12] = SOIL_load_OGL_texture
+        (
+        "img/preto.png",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+
+    if(texture[12] == 0)
+        return 0;
+
+    texture[13] = SOIL_load_OGL_texture
+        (
+        "img/testepenny.png",
+        SOIL_LOAD_AUTO,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_INVERT_Y
+        );
+
+    if(texture[13] == 0)
         return 0;
 
 
@@ -145,6 +193,11 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
     glBindTexture(GL_TEXTURE_2D, texture[7]);
     glBindTexture(GL_TEXTURE_2D, texture[8]);
     glBindTexture(GL_TEXTURE_2D, texture[9]);
+    glBindTexture(GL_TEXTURE_2D, texture[10]);
+    glBindTexture(GL_TEXTURE_2D, texture[11]);
+    glBindTexture(GL_TEXTURE_2D, texture[12]);
+    glBindTexture(GL_TEXTURE_2D, texture[13]);
+
 
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 
@@ -182,7 +235,7 @@ void ReSizeGLScene(int Width, int Height)
 
 void drawFundo(int num)
 {
-  if(clique1==0){
+
     glEnable(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D, texture[num]);   // choose the texture to use.
@@ -228,7 +281,164 @@ void drawFundo(int num)
 
     glEnd();
     glDisable(GL_TEXTURE_2D);
-  }
+
+}
+
+void drawStart()
+{
+
+    glEnable(GL_TEXTURE_2D);
+
+    glBindTexture(GL_TEXTURE_2D, texture[11]);   // choose the texture to use.
+    glPushMatrix();
+    glTranslatef(0.0f,11.0f,-10.0f);              // move 5 units into the screen.
+
+    glBegin(GL_QUADS);
+
+    // Front Face (note that the texture's corners have to match the quad's corners)
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f); // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f); // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f); // Top Left Of The Texture and Quad
+
+    // Back Face
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Bottom Left Of The Texture and Quad
+
+    // Top Face
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+
+    // Bottom Face
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+
+    // Right face
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+
+    // Left Face
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f); // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f); // Top Left Of The Texture and Quad
+
+    glEnd();
+      glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+}
+
+void drawPreto()
+{
+
+    glEnable(GL_TEXTURE_2D);
+
+    glBindTexture(GL_TEXTURE_2D, texture[12]);   // choose the texture to use.
+    glPushMatrix();
+    glTranslatef(0.0f,11.0f,-10.0f);              // move 5 units into the screen.
+
+    glBegin(GL_QUADS);
+
+    // Front Face (note that the texture's corners have to match the quad's corners)
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f); // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f); // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f); // Top Left Of The Texture and Quad
+
+    // Back Face
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Bottom Left Of The Texture and Quad
+
+    // Top Face
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+
+    // Bottom Face
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+
+    // Right face
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+
+    // Left Face
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f); // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f); // Top Left Of The Texture and Quad
+
+    glEnd();
+      glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+
+}
+
+void drawPennyInicial()
+{
+    glEnable(GL_TEXTURE_2D);
+
+    glBindTexture(GL_TEXTURE_2D, texture[13]);   // choose the texture to use.
+    glPushMatrix();
+    glTranslatef(0.0f,-6.0f,0.0f);              // move 5 units into the screen.
+
+    glBegin(GL_QUADS);
+
+    // Front Face (note that the texture's corners have to match the quad's corners)
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f); // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f); // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f); // Top Left Of The Texture and Quad
+
+    // Back Face
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-2.0f, -2.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-2.0f,  3.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 2.0f,  3.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 2.0f, -2.0f, -1.0f);    // Bottom Left Of The Texture and Quad
+
+    // Top Face
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+
+    // Bottom Face
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+
+    // Right face
+    glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+
+    // Left Face
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f); // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f); // Top Left Of The Texture and Quad
+
+    glEnd();
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
 }
 
 void drawEspelho(int num)
@@ -280,90 +490,88 @@ void drawEspelho(int num)
     glDisable(GL_TEXTURE_2D);
 }
 
+void drawCircle(float cx, float cy, float r, int num_segments)
+{
+    glBegin(GL_LINE_LOOP);
+    for(int ii = 0; ii < num_segments; ii++) {
+        float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);//get the current angle
+        float x = r * cosf(theta);//calculate the x component
+        float y = r * sinf(theta);//calculate the y component
+        glVertex2f(x + cx, y + cy);//output vertex
+    }
+    glEnd();
+}
+
+void desenhaBoneco(){
+    //drawCircle(3.0,3.0,6.0);
+}
+
 void animacaoTelaInicial(){
   if(clique1 == 0){
+
     tempo1 = tempo1 + 1;
-
-    if(tempo1 > 0.0 && tempo1 < 100.0){
-      glPushMatrix();
-      drawFundo(0);
-      glPopMatrix();
-    }
-    else if(tempo1 > 100.0 && tempo1 < 200.0){
-      glPushMatrix();
-      drawFundo(1);
-      glPopMatrix();
-
-    }
-    else if(tempo1 > 200.0 && tempo1 < 300.0){
-      glPushMatrix();
-      drawFundo(2);
-      glPopMatrix();
-    }
-    else if(tempo1 > 300.0 && tempo1 < 400.0){
-      glPushMatrix();
-      drawFundo(3);
-      glPopMatrix();
-    }
-    else if(tempo1 > 400.0 && tempo1 < 500.0){
-      glPushMatrix();
-      drawFundo(4);
-      glPopMatrix();
-    }
-    else if(tempo1 > 500.0 && tempo1 < 600.0){
-      glPushMatrix();
-      drawFundo(5);
-      glPopMatrix();
-      tempo1 = 0; //reseta
+    glPushMatrix();
+    drawFundo(2);
+    glPopMatrix();
+    if(tempo1 > 50.0 && tempo1 < 100.0){
+      drawStart();
+    }else if(tempo1 > 100.0 && tempo1 < 200.0){
+      drawPreto();
+    }else if(tempo1 > 200.0 && tempo1 < 300.0){
+      drawStart();
+    }else if(tempo1 > 300.0 && tempo1 < 400.0){
+      drawPreto();
+    }else if(tempo1 > 400 && tempo1 < 500.0){
+      drawStart();
+    }else if(tempo1 > 500 && tempo1 < 600.0){
+      drawPreto();
+    }else if(tempo1 > 600 && tempo1 < 610.0){
+      drawPennyInicial();
+    }else if(tempo1 > 625.0){
+      tempo1 = 0;
     }
   }
 
 }
+
 void animacaoEspelhos(){
   if(clique1 == 1){
     tempo = tempo + 1;
 
     if(tempo > 0.0 && tempo < 100.0){
-
       glPushMatrix();
-      drawEspelho(6);
+      drawEspelho(7);
       glPopMatrix();
     }
     else if(tempo > 100.0 && tempo < 200.0){
       glPushMatrix();
-      drawEspelho(7);
+      drawEspelho(8);
       glPopMatrix();
-
     }
     else if(tempo > 200.0 && tempo < 300.0){
       glPushMatrix();
-      drawEspelho(8);
+      drawEspelho(9);
       glPopMatrix();
     }
     else if(tempo > 300.0 && tempo < 400.0){
       glPushMatrix();
-      drawEspelho(9);
+      drawEspelho(10);
       glPopMatrix();
     }
   }
 }
 
-
 void DrawGLScene()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT); // Clear The Screen And The Depth Buffer
-
 
     glPushMatrix(); //  Salva a matriz corrente
     animacaoTelaInicial();
     glPopMatrix();  //  Desempilha a matriz corrente
 
-
     glPushMatrix();
     animacaoEspelhos();
     glPopMatrix();
-
-
 
     glutSwapBuffers();
 }
@@ -372,9 +580,8 @@ void DrawGLScene()
 void keyboardCB( unsigned char key, int x, int y )
 {
     switch (key){
-        case 27: // ESC
-            exit (0);
-            break;
+        case 13: // ESC
+            clique1 = 1;
   }
   // glutPostRedisplay();
 }
@@ -383,8 +590,7 @@ void keyboardCB( unsigned char key, int x, int y )
 void MouseClique(int button, int state, int xcoord, int ycoord)
 {
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
-        clique1 = clique1 + 1;
-        printf("Entrou!\n");
+        clique1 = 1;
 
     }
 
@@ -400,10 +606,9 @@ void MouseMove(int xcoord, int ycoord)
 
 int main(int argc, char **argv)
 {
-
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
-    glutInitWindowSize(500,500);
+    glutInitWindowSize(850,850);
     glutInitWindowPosition(0, 0);
     window = glutCreateWindow("FunHouse");
 
@@ -417,6 +622,5 @@ int main(int argc, char **argv)
     glutMouseFunc(MouseClique);
     InitGL(500, 500);
     glutMainLoop();
-
     return 1;
 }
