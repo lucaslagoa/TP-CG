@@ -11,25 +11,22 @@
 #include <signal.h>
 #include "SOIL.h"
 
-
-#define ESCAPE 27
-int texture[13];
+int texture[24];
 //pid_t pid = fork();
 int window;
 int textura_fundo = 0;
 int clique1 = 0;
 float angulo_mirax = 0;
 float angulo_miray = 0;
-GLfloat tempo = 0;
-GLfloat tempo1 = 0;
+float tempo = 0;
+float tempo1 = 0;
 
 int LoadGLTextures() // Load Bitmaps And Convert To Textures
 {
 
-    /* load an image file directly as a new OpenGL texture */
     texture[0] = SOIL_load_OGL_texture
         (
-        "img/fundo1.png",
+        "img/fundo3.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -40,7 +37,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[1] = SOIL_load_OGL_texture
         (
-        "img/fundo2.png",
+        "img/samuel2.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -51,7 +48,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[2] = SOIL_load_OGL_texture
         (
-        "img/fundo3.png",
+        "img/pressstart.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -62,7 +59,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[3] = SOIL_load_OGL_texture
         (
-        "img/fundo4.png",
+        "img/preto.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -73,7 +70,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[4] = SOIL_load_OGL_texture
         (
-        "img/fundo5.png",
+        "img/testepenny.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -84,7 +81,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[5] = SOIL_load_OGL_texture
         (
-        "img/fundo6.png",
+        "img/frame-01.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -95,7 +92,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[6] = SOIL_load_OGL_texture
         (
-        "img/fundo7.png",
+        "img/frame-02.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -106,7 +103,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[7] = SOIL_load_OGL_texture
         (
-        "img/samara.jpg",
+        "img/frame-03.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -117,7 +114,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[8] = SOIL_load_OGL_texture
         (
-        "img/exorcist.jpg",
+        "img/frame-04.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
@@ -128,78 +125,183 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
 
     texture[9] = SOIL_load_OGL_texture
         (
-        "img/penny.png",
+        "img/frame-05.png",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
         );
 
-    if(texture[9] == 0)
-        return 0;
+        if(texture[9] == 0)
+            return 0;
 
-    texture[10] = SOIL_load_OGL_texture
-        (
-        "img/samuel2.png",
-        SOIL_LOAD_AUTO,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_INVERT_Y
-        );
+  texture[10] = SOIL_load_OGL_texture
+      (
+      "img/frame-06.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
 
-    if(texture[10] == 0)
-        return 0;
+  if(texture[10] == 0)
+      return 0;
 
-    texture[11] = SOIL_load_OGL_texture
-        (
-        "img/pressstart.png",
-        SOIL_LOAD_AUTO,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_INVERT_Y
-        );
+  texture[11] = SOIL_load_OGL_texture
+      (
+      "img/penny1.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
 
-    if(texture[11] == 0)
-        return 0;
+  if(texture[11] == 0)
+      return 0;
 
-    texture[12] = SOIL_load_OGL_texture
-        (
-        "img/preto.png",
-        SOIL_LOAD_AUTO,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_INVERT_Y
-        );
+  texture[12] = SOIL_load_OGL_texture
+      (
+      "img/penny2.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
 
-    if(texture[12] == 0)
-        return 0;
+  if(texture[12] == 0)
+      return 0;
 
-    texture[13] = SOIL_load_OGL_texture
-        (
-        "img/testepenny.png",
-        SOIL_LOAD_AUTO,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_INVERT_Y
-        );
+  texture[13] = SOIL_load_OGL_texture
+      (
+      "img/penny3.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
 
-    if(texture[13] == 0)
-        return 0;
+  if(texture[13] == 0)
+      return 0;
+
+  texture[14] = SOIL_load_OGL_texture
+      (
+      "img/penny4.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[14] == 0)
+      return 0;
+
+  texture[15] = SOIL_load_OGL_texture
+      (
+      "img/penny5.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[15] == 0)
+      return 0;
+
+  texture[16] = SOIL_load_OGL_texture
+      (
+      "img/penny6.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[16] == 0)
+      return 0;
+
+  texture[17] = SOIL_load_OGL_texture
+      (
+      "img/slender1.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[17] == 0)
+      return 0;
 
 
-    // Typical Texture Generation Using Data From The Bitmap
-    glBindTexture(GL_TEXTURE_2D, texture[0]);
-    glBindTexture(GL_TEXTURE_2D, texture[1]);
-    glBindTexture(GL_TEXTURE_2D, texture[2]);
-    glBindTexture(GL_TEXTURE_2D, texture[3]);
-    glBindTexture(GL_TEXTURE_2D, texture[4]);
-    glBindTexture(GL_TEXTURE_2D, texture[5]);
-    glBindTexture(GL_TEXTURE_2D, texture[6]);
-    glBindTexture(GL_TEXTURE_2D, texture[7]);
-    glBindTexture(GL_TEXTURE_2D, texture[8]);
-    glBindTexture(GL_TEXTURE_2D, texture[9]);
-    glBindTexture(GL_TEXTURE_2D, texture[10]);
-    glBindTexture(GL_TEXTURE_2D, texture[11]);
-    glBindTexture(GL_TEXTURE_2D, texture[12]);
-    glBindTexture(GL_TEXTURE_2D, texture[13]);
+  texture[18] = SOIL_load_OGL_texture
+      (
+      "img/slender2.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[18] == 0)
+      return 0;
+
+  texture[19] = SOIL_load_OGL_texture
+      (
+      "img/slender3.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[19] == 0)
+      return 0;
+
+  texture[20] = SOIL_load_OGL_texture
+      (
+      "img/slender4.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[20] == 0)
+      return 0;
+
+  texture[21] = SOIL_load_OGL_texture
+      (
+      "img/slender5.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[21] == 0)
+      return 0;
+
+  texture[22] = SOIL_load_OGL_texture
+      (
+      "img/slender6.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[22] == 0)
+      return 0;
+
+  texture[23] = SOIL_load_OGL_texture
+      (
+      "img/slender7.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[23] == 0)
+      return 0;
+
+  texture[24] = SOIL_load_OGL_texture
+      (
+      "img/slender8.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[24] == 0)
+      return 0;
 
 
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 
     return 1;                                        // Return Success
 }
@@ -289,7 +391,7 @@ void drawStart()
 
     glEnable(GL_TEXTURE_2D);
 
-    glBindTexture(GL_TEXTURE_2D, texture[11]);   // choose the texture to use.
+    glBindTexture(GL_TEXTURE_2D, texture[2]);   // choose the texture to use.
     glPushMatrix();
     glTranslatef(0.0f,11.0f,-10.0f);              // move 5 units into the screen.
 
@@ -342,7 +444,7 @@ void drawPreto()
 
     glEnable(GL_TEXTURE_2D);
 
-    glBindTexture(GL_TEXTURE_2D, texture[12]);   // choose the texture to use.
+    glBindTexture(GL_TEXTURE_2D, texture[3]);   // choose the texture to use.
     glPushMatrix();
     glTranslatef(0.0f,11.0f,-10.0f);              // move 5 units into the screen.
 
@@ -394,7 +496,7 @@ void drawPennyInicial()
 {
     glEnable(GL_TEXTURE_2D);
 
-    glBindTexture(GL_TEXTURE_2D, texture[13]);   // choose the texture to use.
+    glBindTexture(GL_TEXTURE_2D, texture[4]);   // choose the texture to use.
     glPushMatrix();
     glTranslatef(0.0f,-6.0f,0.0f);              // move 5 units into the screen.
 
@@ -490,28 +592,12 @@ void drawEspelho(int num)
     glDisable(GL_TEXTURE_2D);
 }
 
-void drawCircle(float cx, float cy, float r, int num_segments)
-{
-    glBegin(GL_LINE_LOOP);
-    for(int ii = 0; ii < num_segments; ii++) {
-        float theta = 2.0f * 3.1415926f * float(ii) / float(num_segments);//get the current angle
-        float x = r * cosf(theta);//calculate the x component
-        float y = r * sinf(theta);//calculate the y component
-        glVertex2f(x + cx, y + cy);//output vertex
-    }
-    glEnd();
-}
-
-void desenhaBoneco(){
-    //drawCircle(3.0,3.0,6.0);
-}
-
 void animacaoTelaInicial(){
   if(clique1 == 0){
 
     tempo1 = tempo1 + 1;
     glPushMatrix();
-    drawFundo(2);
+    drawFundo(0);
     glPopMatrix();
     if(tempo1 > 50.0 && tempo1 < 100.0){
       drawStart();
@@ -535,30 +621,115 @@ void animacaoTelaInicial(){
 }
 
 void animacaoEspelhos(){
+  glTranslatef(0.0f,5.0f,0.0f);
+
   if(clique1 == 1){
     tempo = tempo + 1;
-
-    if(tempo > 0.0 && tempo < 100.0){
+    if(tempo > 0.0 && tempo < 30.0){
+      glPushMatrix();
+      drawEspelho(5);
+      glPopMatrix();
+    }
+    else if(tempo > 30.0 && tempo < 60.0){
+      glPushMatrix();
+      drawEspelho(6);
+      glPopMatrix();
+    }
+    else if(tempo > 60.0 && tempo < 80.0){
       glPushMatrix();
       drawEspelho(7);
       glPopMatrix();
     }
-    else if(tempo > 100.0 && tempo < 200.0){
+    else if(tempo > 80.0 && tempo < 100.0){
       glPushMatrix();
       drawEspelho(8);
       glPopMatrix();
     }
-    else if(tempo > 200.0 && tempo < 300.0){
+    else if(tempo > 100.0 && tempo < 120.0){
       glPushMatrix();
       drawEspelho(9);
       glPopMatrix();
     }
-    else if(tempo > 300.0 && tempo < 400.0){
+    else if(tempo > 120.0 && tempo < 140.0){
       glPushMatrix();
       drawEspelho(10);
       glPopMatrix();
     }
-  }
+    else if(tempo > 140.0 && tempo < 160.0){
+      glPushMatrix();
+      drawEspelho(11);
+      glPopMatrix();
+    }
+    else if(tempo > 160.0 && tempo < 180.0){
+      glPushMatrix();
+      drawEspelho(12);
+      glPopMatrix();
+    }
+    else if(tempo > 180.0 && tempo < 200.0){
+      glPushMatrix();
+      drawEspelho(13);
+      glPopMatrix();
+    }
+    else if(tempo > 200.0 && tempo < 220.0){
+      glPushMatrix();
+      drawEspelho(14);
+      glPopMatrix();
+    }
+    else if(tempo > 220.0 && tempo < 240.0){
+      glPushMatrix();
+      drawEspelho(15);
+      glPopMatrix();
+    }
+    else if(tempo > 240.0 && tempo < 260.0){
+      glPushMatrix();
+      drawEspelho(16);
+      glPopMatrix();
+    }
+    else if(tempo > 260.0 && tempo < 280.0){
+      glPushMatrix();
+      drawEspelho(17);
+      glPopMatrix();
+    }
+    else if(tempo > 280.0 && tempo < 300.0){
+      glPushMatrix();
+      drawEspelho(18);
+      glPopMatrix();
+    }
+    else if(tempo > 300.0 && tempo < 320.0){
+      glPushMatrix();
+      drawEspelho(19);
+      glPopMatrix();
+    }
+    else if(tempo > 320.0 && tempo < 340.0){
+      glPushMatrix();
+      drawEspelho(20);
+      glPopMatrix();
+    }
+    else if(tempo > 340.0 && tempo < 360.0){
+      glPushMatrix();
+      drawEspelho(21);
+      glPopMatrix();
+    }
+    else if(tempo > 360.0 && tempo < 380.0){
+      glPushMatrix();
+      drawEspelho(22);
+      glPopMatrix();
+    }
+    else if(tempo > 380.0 && tempo < 400.0){
+      glPushMatrix();
+      drawEspelho(23);
+      glPopMatrix();
+    }
+    else if(tempo > 400.0 && tempo < 420.0){
+      glPushMatrix();
+      drawEspelho(24);
+      glPopMatrix();
+    }
+
+    else if(tempo > 420.0){
+      tempo = 0;
+    }
+}
 }
 
 void DrawGLScene()
