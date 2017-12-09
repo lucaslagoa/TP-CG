@@ -335,6 +335,130 @@ void ReSizeGLScene(int Width, int Height)
     glMatrixMode(GL_MODELVIEW);
 }
 
+void drawCircle( float x , float y , float raio , int num_lines ) {
+   float angulo = 0;
+   glColor3f(3.5 , 2.0, -0.5 );
+   glBegin ( GL_POLYGON );
+    for (int i = 0; i < num_lines ;i++) {
+       angulo = i * 2 * M_PI /num_lines ;
+        glVertex2f (x + (cos (angulo) * raio) , (y + sin ( angulo ) * raio) );
+      } glEnd ();
+
+}
+
+void desenhaCabeca( float x , float y , float raio , int num_lines ){
+
+  float angulo = 0;
+  glColor3f(3.5 , 2.0, -0.5 );
+  glBegin ( GL_POLYGON );
+  for (int i = 0; i < num_lines ;i++) {
+      angulo = i * 2 * M_PI /num_lines ;
+      glVertex2f (x + (cos (angulo) * raio) , (y + sin ( angulo ) * raio) );
+  }
+  glEnd ();
+}
+void desenhaCorpo(){
+  glBegin(GL_LINE_LOOP);
+  glVertex2f(-0.5f, 0.5f);  // Top Left
+  glVertex2f( 0.5f, 0.5f); // Top Right    // Top Right
+  glVertex2f( 0.5f,-0.5f); // Bottom Right
+  glVertex2f(-0.5f,-0.5f);    // Bottom Left
+  glEnd();
+}
+void desenhaCadeira(){
+  glBegin(GL_QUADS);
+  glVertex2f(-0.5f, 0.5f);  // Top Left
+  glVertex2f( 0.5f, 0.5f); // Top Right    // Top Right
+  glVertex2f( 0.5f,-0.5f); // Bottom Right
+  glVertex2f(-0.5f,-0.5f);    // Bottom Left
+  glEnd();
+}
+
+void desenhaBraco(){
+  glBegin(GL_QUADS);
+  glVertex2f(-0.5f, 0.5f);  // Top Left
+  glVertex2f( 0.5f, 0.5f); // Top Right    // Top Right
+  glVertex2f( 0.5f,-0.5f); // Bottom Right
+  glVertex2f(-0.5f,-0.5f);    // Bottom Left
+  glEnd();
+}
+void desenhaBracoPersonagem(){
+  glBegin(GL_QUADS);
+  glVertex2f(-0.05f, 0.05f);  // Top Left
+  glVertex2f( 0.05f, 0.05f); // Top Right    // Top Right
+  glVertex2f( 0.05f,-0.05f); // Bottom Right
+  glVertex2f(-0.05f,-0.05f);    // Bottom Left
+  glEnd();
+
+}
+
+void desenhaPersonagens(float x,float z){
+
+  glTranslatef(0.0f+x,-2.3f,z);
+  glColor3f(1.0 , 0.0, 0.0 );
+  desenhaCadeira();
+  glTranslatef(0.0f+(x/2),0.75f,z);
+  desenhaCabeca(0,-0.5,0.4,100);
+  glTranslatef(0.0f+(x/2),-2.05f,z);
+  desenhaCorpo();
+
+  //desenhar os braços
+  glPushMatrix();
+    glTranslatef(0.8f+(x/2),0.0f,z);
+    drawCircle(0,-0.5,0.1,100); //desenha o ombro do boneco
+    glTranslatef(0.0f,-1.1f,0.0f);
+      glPushMatrix();
+        glRotatef(30,0,0,1);
+        glScalef(1.0f,10.0f,0.0f);
+        desenhaBracoPersonagem();
+      glPopMatrix();
+    glTranslatef(-1.60f,1.1f,0.0f);
+    drawCircle(0,-0.5,0.1,100); //desenha o ombro do boneco
+    glTranslatef(0.0f,-1.1f,0.0f);
+    glPushMatrix();
+        glRotatef(30,0,0,1);
+        glScalef(1.0f,10.0f,0.0f);
+        desenhaBracoPersonagem();
+      glPopMatrix();
+
+
+  glPopMatrix();
+
+  glTranslatef(-1.5f+(x/2),-2.0f,z);
+  glColor3f(128.0f , 128.0f, 128.0f ); //deixa azul, mas ao fim vou colocar um cinza
+  desenhaBraco(); //só que aqui vai ser o braço da cadeira*/
+
+  glTranslatef(3.0f,0.0f,0.0f);
+  glColor3f(128.0f , 128.0f, 128.0f ); //deixa azul, mas ao fim vou colocar um cinza
+  desenhaBraco(); //só que aqui vai ser o braço da cadeira*/
+}
+void funhouse(){
+	//initSong("Data/Songs/tema0.mp3", "repeatoff");
+  //initSong("tema0.mp3", "repeatoff");
+	glLoadIdentity();				// Reset The View
+  glTranslatef(0.0f,0.0f,-6.0f);
+	glPushMatrix();
+	glScalef(1.2f,1.5f,1.0f);
+	glPushMatrix();
+  desenhaPersonagens(0,-6);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(2,-6);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(4,-6);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(-2,-6);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(-4,-6);
+	glPopMatrix();
+	glPopMatrix();
+
+
+}
+
 void drawFundo(int num)
 {
 
@@ -621,7 +745,13 @@ void animacaoTelaInicial(){
 }
 
 void animacaoEspelhos(){
+
   glTranslatef(0.0f,5.0f,0.0f);
+
+  //glTranslatef(0.0f,5.0f,0.0f);
+  glPushMatrix();
+  funhouse();
+  glPopMatrix();
 
   if(clique1 == 1){
     tempo = tempo + 1;
