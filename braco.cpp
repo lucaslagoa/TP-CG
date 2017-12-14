@@ -456,16 +456,43 @@ void funhouse(){
   desenhaPersonagens(0,-6,1.0,1.0,1.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPushMatrix();
-	desenhaPersonagens(2,-6,51.0,0.0,51.0,0,0,0);
+	desenhaPersonagens(2,-6,51.0,0.0,51.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPushMatrix();
 	desenhaPersonagens(4,-6,0.0,1.0,0.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPushMatrix();
-	desenhaPersonagens(-2,-6,0.0,0.0,1.0,0,0,0);
+	desenhaPersonagens(-2,-6,0.0,0.0,1.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPushMatrix();
 	desenhaPersonagens(-4,-6,1.0,1.0,0.0,-1.1,1.1,-1.1);
+	glPopMatrix();
+	glPopMatrix();
+
+
+}
+
+void funhouse2(){
+	//initSong("Data/Songs/tema0.mp3", "repeatoff");
+  //initSong("tema0.mp3", "repeatoff");
+	glLoadIdentity();				// Reset The View
+  glTranslatef(0.0f,0.0f,-6.0f);
+	glPushMatrix();
+	glScalef(1.2f,1.5f,1.0f);
+	glPushMatrix();
+  desenhaPersonagens(0,-6,1.0,1.0,1.0,0,0,0);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(2,-6,51.0,0.0,51.0,0,0,0);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(4,-6,0.0,1.0,0.0,0,0,0);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(-2,-6,0.0,0.0,1.0,0,0,0);
+	glPopMatrix();
+	glPushMatrix();
+	desenhaPersonagens(-4,-6,1.0,1.0,0.0,0,0,0);
 	glPopMatrix();
 	glPopMatrix();
 
@@ -668,11 +695,11 @@ void animacaoTelaInicial(){
 void animacaoEspelhos(){
 
   glTranslatef(0.0f,5.0f,0.0f);
-
-  glPushMatrix();
-  funhouse();
-  glPopMatrix();
-
+    if(tempo < 420){
+      glPushMatrix();
+      funhouse();
+      glPopMatrix();
+    }
     tempo = tempo + 1;
     if(tempo > 0.0 && tempo < 30.0){
       glPushMatrix();
@@ -794,8 +821,13 @@ void animacaoEspelhos(){
       drawZZZ(24.0);
       glPopMatrix();
     }
-
-    else if(tempo > 420.0){
+    else if(tempo > 420 && tempo < 480){
+      glPushMatrix();
+      drawEspelho(1);
+      funhouse2();
+      glPopMatrix();
+    }
+    else if(tempo > 480.0){
       tempo = 0;
     }
 
