@@ -402,7 +402,7 @@ void desenhaBracoPersonagem(){
 
 }
 
-void desenhaPersonagens(float x,float z,float r, float g,float b){
+void desenhaPersonagens(float x,float z,float r, float g,float b,float levanta,float levanta2,float levanta3){
 
   glTranslatef(0.0f+x,-2.3f,z);
   glColor3f(1.0 , 0.0, 0.0 );
@@ -417,16 +417,16 @@ void desenhaPersonagens(float x,float z,float r, float g,float b){
   glPushMatrix();
     glTranslatef(0.8f+(x/2),0.0f,z);
     drawCircle(0,-0.5,0.1,100,r,g,b); //desenha o ombro do boneco
-    glTranslatef(0.0f,-1.1f,0.0f);
+    glTranslatef(0.0f,levanta,0.0f);
       glPushMatrix();
         //glRotatef(30.0,0.0,0.0,-1.0);
         glScalef(1.0f,10.0f,0.0f);
         glColor3f(r,g,b);
         desenhaBracoPersonagem();
       glPopMatrix();
-    glTranslatef(-1.60f,1.1f,0.0f);
+    glTranslatef(-1.60f,levanta2,0.0f);
     drawCircle(0,-0.5,0.1,100,r,g,b); //desenha o ombro do boneco
-    glTranslatef(0.0f,-1.1f,0.0f);
+    glTranslatef(0.0f,levanta3,0.0f);
     glPushMatrix();
         //glRotatef(30.0,0.0,0.0,-1.0);
         glScalef(1.0f,10.0f,0.0f);
@@ -453,19 +453,19 @@ void funhouse(){
 	glPushMatrix();
 	glScalef(1.2f,1.5f,1.0f);
 	glPushMatrix();
-  desenhaPersonagens(0,-6,1.0,1.0,1.0);
+  desenhaPersonagens(0,-6,1.0,1.0,1.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPushMatrix();
-	desenhaPersonagens(2,-6,51.0,0.0,51.0);
+	desenhaPersonagens(2,-6,51.0,0.0,51.0,0,0,0);
 	glPopMatrix();
 	glPushMatrix();
-	desenhaPersonagens(4,-6,0.0,1.0,0.0);
+	desenhaPersonagens(4,-6,0.0,1.0,0.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPushMatrix();
-	desenhaPersonagens(-2,-6,0.0,0.0,1.0);
+	desenhaPersonagens(-2,-6,0.0,0.0,1.0,0,0,0);
 	glPopMatrix();
 	glPushMatrix();
-	desenhaPersonagens(-4,-6,1.0,1.0,0.0);
+	desenhaPersonagens(-4,-6,1.0,1.0,0.0,-1.1,1.1,-1.1);
 	glPopMatrix();
 	glPopMatrix();
 
