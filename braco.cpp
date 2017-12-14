@@ -316,8 +316,8 @@ void InitGL(int Width, int Height)          // We call this right after our Open
     glEnable(GL_DEPTH_TEST);            // Enables Depth Testing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-10,10,-((GLfloat)Width/(GLfloat)Height) * 10,((GLfloat)Width/(GLfloat)Height) * 10, 0, 10);
-    //gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.01f,100.0f);
+    //glOrtho(-10,10,-((GLfloat)Width/(GLfloat)Height) * 10,((GLfloat)Width/(GLfloat)Height) * 10, 0, 100);
+    gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.01f,100.0f);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -330,8 +330,8 @@ void ReSizeGLScene(int Width, int Height)
     glViewport(0, 0, Width, Height);    // Reset The Current Viewport And Perspective Transformation
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,100.0f);
-    glOrtho(-10,10,-((GLfloat)Width/(GLfloat)Height) * 10,((GLfloat)Width/(GLfloat)Height) * 10, 0, 10);
+    gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,100.0f);
+    //glOrtho(-10,10,-((GLfloat)Width/(GLfloat)Height) * 10,((GLfloat)Width/(GLfloat)Height) * 10, 0, 10);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -465,7 +465,7 @@ void drawFundo(int num)
     glEnable(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D, texture[num]);   // choose the texture to use.
-    glTranslatef(0.0f,0.0f,-10.0f);              // move 5 units into the screen.
+    glTranslatef(0.0f,0.0f,-30.0f);              // move 5 units into the screen.
 
     glBegin(GL_QUADS);
 
@@ -517,7 +517,7 @@ void drawStart()
 
     glBindTexture(GL_TEXTURE_2D, texture[2]);   // choose the texture to use.
     glPushMatrix();
-    glTranslatef(0.0f,11.0f,-10.0f);              // move 5 units into the screen.
+    glTranslatef(0.0f,11.0f,-30.0f);              // move 5 units into the screen.
 
     glBegin(GL_QUADS);
 
@@ -570,7 +570,7 @@ void drawPreto()
 
     glBindTexture(GL_TEXTURE_2D, texture[3]);   // choose the texture to use.
     glPushMatrix();
-    glTranslatef(0.0f,11.0f,-10.0f);              // move 5 units into the screen.
+    glTranslatef(0.0f,11.0f,-30.0f);              // move 5 units into the screen.
 
     glBegin(GL_QUADS);
 
@@ -622,7 +622,7 @@ void drawPennyInicial()
 
     glBindTexture(GL_TEXTURE_2D, texture[4]);   // choose the texture to use.
     glPushMatrix();
-    glTranslatef(0.0f,-6.0f,0.0f);              // move 5 units into the screen.
+    glTranslatef(0.0f,-6.0f,-25.0f);              // move 5 units into the screen.
 
     glBegin(GL_QUADS);
 
@@ -672,29 +672,29 @@ void drawEspelho(int num)
     glEnable(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D, texture[num]);   // choose the texture to use.
-    glTranslatef(0.0f,0.0f,-10.0f);              // move 5 units into the screen.
+    glTranslatef(0.0f,0.0f,-30.0f);              // move 5 units into the screen.
 
     glBegin(GL_QUADS);
 
     // Front Face (note that the texture's corners have to match the quad's corners)
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-7.0f, -7.0f,  1.0f); // Bottom Left Of The Texture and Quad
-    glTexCoord2f(1.0f, 0.0f); glVertex3f( 7.0f, -7.0f,  1.0f); // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f( 7.0f,  7.0f,  1.0f); // Top Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-7.0f,  7.0f,  1.0f); // Top Left Of The Texture and Quad
+  //  glTexCoord2f(0.0f, 0.0f); glVertex3f(-7.0f, -7.0f,  1.0f); // Bottom Left Of The Texture and Quad
+    //glTexCoord2f(1.0f, 0.0f); glVertex3f( 7.0f, -7.0f,  1.0f); // Bottom Right Of The Texture and Quad
+    //glTexCoord2f(1.0f, 1.0f); glVertex3f( 7.0f,  7.0f,  1.0f); // Top Right Of The Texture and Quad
+    //glTexCoord2f(0.0f, 1.0f); glVertex3f(-7.0f,  7.0f,  1.0f); // Top Left Of The Texture and Quad
 
     // Back Face
-    glTexCoord2f(1.0f, 0.0f); glVertex3f(-5.0f, -5.0f, -1.0f);    // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f(-5.0f,  5.0f, -1.0f);    // Top Right Of The Texture and Quad
-    glTexCoord2f(0.0f, 1.0f); glVertex3f( 5.0f,  5.0f, -1.0f);    // Top Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f( 5.0f, -5.0f, -1.0f);    // Bottom Left Of The Texture and Quad
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-10.0f, -5.0f, -1.0f);    // Bottom Right Of The Texture and Quad
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-10.0f,  5.0f, -1.0f);    // Top Right Of The Texture and Quad
+    glTexCoord2f(0.0f, 1.0f); glVertex3f( 10.0f,  5.0f, -1.0f);    // Top Left Of The Texture and Quad
+    glTexCoord2f(0.0f, 0.0f); glVertex3f( 10.0f, -5.0f, -1.0f);    // Bottom Left Of The Texture and Quad
 
     // Top Face
-    glTexCoord2f(0.0f, 1.0f); glVertex3f(-7.0f,  7.0f, -1.0f);    // Top Left Of The Texture and Quad
-    glTexCoord2f(0.0f, 0.0f); glVertex3f(-7.0f,  7.0f,  1.0f);    // Bottom Left Of The Texture and Quad
-    glTexCoord2f(1.0f, 0.0f); glVertex3f( 7.0f,  7.0f,  1.0f);    // Bottom Right Of The Texture and Quad
-    glTexCoord2f(1.0f, 1.0f); glVertex3f( 7.0f,  7.0f, -1.0f);    // Top Right Of The Texture and Quad
+    //glTexCoord2f(0.0f, 1.0f); glVertex3f(-7.0f,  7.0f, -1.0f);    // Top Left Of The Texture and Quad
+    //glTexCoord2f(0.0f, 0.0f); glVertex3f(-7.0f,  7.0f,  1.0f);    // Bottom Left Of The Texture and Quad
+    //glTexCoord2f(1.0f, 0.0f); glVertex3f( 7.0f,  7.0f,  1.0f);    // Bottom Right Of The Texture and Quad
+    //glTexCoord2f(1.0f, 1.0f); glVertex3f( 7.0f,  7.0f, -1.0f);    // Top Right Of The Texture and Quad
 
-    // Bottom Face
+/*    // Bottom Face
     glTexCoord2f(1.0f, 1.0f); glVertex3f(-7.0f, -7.0f, -1.0f);    // Top Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f( 7.0f, -7.0f, -1.0f);    // Top Left Of The Texture and Quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f( 7.0f, -7.0f,  1.0f);    // Bottom Left Of The Texture and Quad
@@ -711,13 +711,13 @@ void drawEspelho(int num)
     glTexCoord2f(1.0f, 0.0f); glVertex3f(-5.0f, -5.0f,  1.0f); // Bottom Right Of The Texture and Quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(-5.0f,  5.0f,  1.0f); // Top Right Of The Texture and Quad
     glTexCoord2f(0.0f, 1.0f); glVertex3f(-5.0f,  5.0f, -1.0f); // Top Left Of The Texture and Quad
-
+*/
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
 
 void animacaoTelaInicial(){
-  if(clique1 == 0){
+
 
     tempo1 = tempo1 + 1;
     glPushMatrix();
@@ -740,7 +740,7 @@ void animacaoTelaInicial(){
     }else if(tempo1 > 625.0){
       tempo1 = 0;
     }
-  }
+
 
 }
 
@@ -753,7 +753,7 @@ void animacaoEspelhos(){
   funhouse();
   glPopMatrix();
 
-  if(clique1 == 1){
+
     tempo = tempo + 1;
     if(tempo > 0.0 && tempo < 30.0){
       glPushMatrix();
@@ -859,21 +859,21 @@ void animacaoEspelhos(){
     else if(tempo > 420.0){
       tempo = 0;
     }
-}
+
 }
 
 void DrawGLScene()
 {
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT); // Clear The Screen And The Depth Buffer
-
+  if(clique1 == 0){
     glPushMatrix(); //  Salva a matriz corrente
     animacaoTelaInicial();
     glPopMatrix();  //  Desempilha a matriz corrente
-
+} else{
     glPushMatrix();
     animacaoEspelhos();
     glPopMatrix();
-
+}
     glutSwapBuffers();
 }
 
