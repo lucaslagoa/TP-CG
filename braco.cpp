@@ -11,6 +11,24 @@
 #include <signal.h>
 #include "SOIL.h"
 
+GLfloat xRotated, yRotated, zRotated;
+GLdouble radius=4;
+GLfloat qaBlack[] = {0.0, 0.0, 0.0, 1.0}; //Black Color
+GLfloat qaGreen[] = {1.0, 0.0, 0.0, 1.0}; //Green Color
+GLfloat qaWhite[] = {1.0, 1.0, 1.0, 1.0}; //White Color
+GLfloat qaRed[] = {1.0, 0.0, 0.0, 1.0}; //Red Color
+
+    // Set lighting intensity and color
+GLfloat qaAmbientLight[]    = {0.5, 0.5, 0.5, 1.0};
+GLfloat qaDiffuseLight[]    = {5, 5, 5, 1.0};
+GLfloat qaSpecularLight[]    = {5.0, 5.0, 5.0, 1.0};
+GLfloat emitLight[] = {0.9, 0.9, 0.9, 0.01};
+GLfloat Noemit[] = {0.0, 0.0, 0.0, 1.0};
+    // Light source position
+GLfloat qaLightPosition[]    = {0, 0, 2, 1};
+GLfloat qaLightDirection[]    = {0, 1, 0, 0};
+GLfloat dirVector0[]={ 0.0, 1.0, 0.0, 0.0};
+
 int texture[27];
 //pid_t pid = fork();
 int window;
@@ -20,6 +38,28 @@ float angulo_mirax = 0;
 float angulo_miray = 0;
 float tempo = 0;
 float tempo1 = 0;
+
+void initLighting()
+{
+
+    // Enable lighting
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+
+     // Set lighting intensity and color
+       glLightfv(GL_LIGHT0, GL_AMBIENT, qaAmbientLight);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, qaDiffuseLight);
+    glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, qaSpecularLight);
+    ////////////////////////////////////////////////
+
+
+     glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);// set cutoff angle
+     glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dirVector0);
+     glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 1); // set focusing strength
+
+
+}
 
 int LoadGLTextures() // Load Bitmaps And Convert To Textures
 {
@@ -735,145 +775,171 @@ void animacaoTelaInicial(){
 void animacaoEspelhos(){
 
   glTranslatef(0.0f,5.0f,0.0f);
+
     if(tempo < 460){
+      glEnable(GL_LIGHTING);
       glPushMatrix();
       funhouse();
       glPopMatrix();
     }
+
     tempo = tempo + 1;
     if(tempo > 0.0 && tempo < 30.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(5);
       drawZZZ(-15.0);
       glPopMatrix();
     }
     else if(tempo > 30.0 && tempo < 60.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(6);
       drawZZZ(-13.0);
       glPopMatrix();
     }
     else if(tempo > 60.0 && tempo < 80.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(7);
       drawZZZ(-10.0);
       glPopMatrix();
     }
     else if(tempo > 80.0 && tempo < 100.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(8);
       drawZZZ(-8.0);
       glPopMatrix();
     }
     else if(tempo > 100.0 && tempo < 120.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(9);
       drawZZZ(-6.0);
       glPopMatrix();
     }
     else if(tempo > 120.0 && tempo < 140.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(10);
       drawZZZ(-4.0);
       glPopMatrix();
     }
     else if(tempo > 140.0 && tempo < 160.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(11);
       drawZZZ(-2.0);
       glPopMatrix();
     }
     else if(tempo > 160.0 && tempo < 180.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(12);
       drawZZZ(0.0);
       glPopMatrix();
     }
     else if(tempo > 180.0 && tempo < 200.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(13);
       drawZZZ(2.0);
       glPopMatrix();
     }
     else if(tempo > 200.0 && tempo < 220.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(14);
       drawZZZ(4.0);
       glPopMatrix();
     }
     else if(tempo > 220.0 && tempo < 240.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(15);
       drawZZZ(6.0);
       glPopMatrix();
     }
     else if(tempo > 240.0 && tempo < 260.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(16);
       drawZZZ(8.0);
       glPopMatrix();
     }
     else if(tempo > 260.0 && tempo < 280.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(17);
       drawZZZ(10.0);
       glPopMatrix();
     }
     else if(tempo > 280.0 && tempo < 300.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(18);
       drawZZZ(12.0);
       glPopMatrix();
     }
     else if(tempo > 300.0 && tempo < 320.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(19);
       drawZZZ(14.0);
       glPopMatrix();
     }
     else if(tempo > 320.0 && tempo < 340.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(20);
       drawZZZ(16.0);
       glPopMatrix();
     }
     else if(tempo > 340.0 && tempo < 360.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(21);
       drawZZZ(18.0);
       glPopMatrix();
     }
     else if(tempo > 360.0 && tempo < 380.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(22);
       drawZZZ(20.0);
       glPopMatrix();
     }
     else if(tempo > 380.0 && tempo < 400.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(23);
       drawZZZ(22.0);
       glPopMatrix();
     }
     else if(tempo > 400.0 && tempo < 420.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(24);
       drawZZZ(24.0);
       glPopMatrix();
     }
     else if(tempo > 420.0 && tempo < 460.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(26);
       drawZZZ(26.0);
       glPopMatrix();
     }
     else if(tempo > 460.0 && tempo < 540.0){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(1);
       funhouse2();
       glPopMatrix();
     }
     else if(tempo > 540 && tempo < 620){
+      glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(27);
       desenhaPoltronaVazia(0);
@@ -897,7 +963,15 @@ void DrawGLScene()
     animacaoTelaInicial();
     glPopMatrix();  //  Desempilha a matriz corrente
 } else{
+  //boneco liga luz desenha tela desliga a luz
     glPushMatrix();
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, qaWhite);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, qaWhite);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, qaWhite);
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 20);
+    glLightfv(GL_LIGHT0, GL_POSITION, qaLightPosition);
+    initLighting();
+  //  glEnable(GL_LIGHTING);
     animacaoEspelhos();
     glPopMatrix();
 }
