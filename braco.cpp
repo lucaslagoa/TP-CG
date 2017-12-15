@@ -11,7 +11,7 @@
 #include <signal.h>
 #include "SOIL.h"
 
-int texture[25];
+int texture[27];
 //pid_t pid = fork();
 int window;
 int textura_fundo = 0;
@@ -311,6 +311,28 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
   if(texture[25] == 0)
       return 0;
 
+  texture[26] = SOIL_load_OGL_texture
+      (
+      "img/periodo.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[26] == 0)
+      return 0;
+
+  texture[27] = SOIL_load_OGL_texture
+      (
+      "img/selvagem.png",
+      SOIL_LOAD_AUTO,
+      SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_INVERT_Y
+      );
+
+  if(texture[26] == 0)
+      return 0;
+
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 
     return 1;                                        // Return Success
@@ -498,7 +520,25 @@ void funhouse2(){
 
 
 }
-
+void desenhaPoltronaVazia(float x){
+    glLoadIdentity();				// Reset The View
+    glTranslatef(0.0f,0.0f,-6.0f);
+	  glPushMatrix();
+	  glScalef(1.2f,1.5f,1.0f);
+	  glPushMatrix();
+    glTranslatef(0.0f+x,-2.3f,-6);
+    glColor3f(1.0 , 0.0, 0.0 );
+    desenhaCadeira();
+    glTranslatef(0.0f+(x/2),0.75f,-6);
+    glTranslatef(0.0f+(x/2),-2.05f,-6);
+    glTranslatef(-1.5f+(x/2),-2.0f,-6);
+    glColor3f(128.0f , 128.0f, 128.0f ); //deixa azul, mas ao fim vou colocar um cinza
+    desenhaBraco(); //só que aqui vai ser o braço da cadeira*/
+    glTranslatef(3.0f,0.0f,0.0f);
+    glColor3f(128.0f , 128.0f, 128.0f ); //deixa azul, mas ao fim vou colocar um cinza
+    desenhaBraco(); //só que aqui vai ser o braço da cadeira*/
+    glPopMatrix();
+}
 void drawFundo(int num)
 {
 
@@ -695,7 +735,7 @@ void animacaoTelaInicial(){
 void animacaoEspelhos(){
 
   glTranslatef(0.0f,5.0f,0.0f);
-    if(tempo < 420){
+    if(tempo < 460){
       glPushMatrix();
       funhouse();
       glPopMatrix();
@@ -821,13 +861,29 @@ void animacaoEspelhos(){
       drawZZZ(24.0);
       glPopMatrix();
     }
-    else if(tempo > 420 && tempo < 480){
+    else if(tempo > 420.0 && tempo < 460.0){
+      glPushMatrix();
+      drawEspelho(26);
+      drawZZZ(26.0);
+      glPopMatrix();
+    }
+    else if(tempo > 460.0 && tempo < 540.0){
       glPushMatrix();
       drawEspelho(1);
       funhouse2();
       glPopMatrix();
     }
-    else if(tempo > 480.0){
+    else if(tempo > 540 && tempo < 620){
+      glPushMatrix();
+      drawEspelho(27);
+      desenhaPoltronaVazia(0);
+      desenhaPoltronaVazia(2);
+      desenhaPoltronaVazia(4);
+      desenhaPoltronaVazia(-2);
+      desenhaPoltronaVazia(-4);
+      glPopMatrix();
+    }
+    else if(tempo > 620.0){
       tempo = 0;
     }
 
