@@ -373,7 +373,7 @@ int LoadGLTextures() // Load Bitmaps And Convert To Textures
       SOIL_FLAG_INVERT_Y
       );
 
-  if(texture[26] == 0)
+  if(texture[27] == 0)
       return 0;
 
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
@@ -784,7 +784,7 @@ int animacaoEspelhos(){
       glPushMatrix();
       funhouse();
       glPopMatrix();
-      
+
     }
 
     tempo = tempo + 1;
@@ -794,8 +794,8 @@ int animacaoEspelhos(){
       if (!music.openFromFile("sound/som_da_ilha.ogg"))
 		return -1; // error
 	  music.play();
-	  music.setVolume(40);			
-		
+	  music.setVolume(40);
+
       glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(5);
@@ -935,7 +935,7 @@ int animacaoEspelhos(){
       drawZZZ(24.0);
       glPopMatrix();
     }
-    else if(tempo > 420.0 && tempo < 460.0){		
+    else if(tempo > 420.0 && tempo < 460.0){
       glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(26);
@@ -947,13 +947,13 @@ int animacaoEspelhos(){
       if (!music.openFromFile("sound/gritos.ogg"))
 		return -1; // error
 	  music.play();
-	  music.setVolume(60);	
-		
+	  music.setVolume(100);
+
       glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(1);
       funhouse2();
-      glPopMatrix();     
+      glPopMatrix();
     }
     else if(tempo > 540 && tempo < 620){
       glDisable(GL_LIGHTING);
@@ -1002,6 +1002,9 @@ void keyboardCB( unsigned char key, int x, int y )
     switch (key){
         case 13: // ESC
             clique1 = 1;
+        case 27:
+            exit (0);
+            break;
   }
   // glutPostRedisplay();
 }
@@ -1040,15 +1043,16 @@ int main(int argc, char **argv)
     glutPassiveMotionFunc(MouseMove);
     glutKeyboardFunc(keyboardCB);
     glutMouseFunc(MouseClique);
+    glutFullScreen();
     InitGL(500, 500);
-    
+
     // Loading sound
 	//sf::Music music;
 	if (!music.openFromFile("sound/merchant__welcome!.wav"))
 		return -1; // error
 	music.play();
 	music.setVolume(40);
-    
+
     glutMainLoop();
     return 1;
 }
