@@ -1,4 +1,4 @@
 compilar:
-	g++ braco.cpp -o braco -lGL -lSOIL -lGLU -lglut 
+	g++ funHouse.cpp -o funHouse -lGL -lSOIL -lGLU -lglut -lsfml-audio
 rm:
-	rm braco
+	rm funHouse

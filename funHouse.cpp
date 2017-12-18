@@ -10,6 +10,9 @@
 #include <sys/types.h>
 #include <signal.h>
 #include "SOIL.h"
+#include <SFML/Audio.hpp>
+
+sf::Music music;
 
 GLfloat xRotated, yRotated, zRotated;
 GLdouble radius=4;
@@ -772,7 +775,7 @@ void animacaoTelaInicial(){
     }
 }
 
-void animacaoEspelhos(){
+int animacaoEspelhos(){
 
   glTranslatef(0.0f,5.0f,0.0f);
 
@@ -781,10 +784,18 @@ void animacaoEspelhos(){
       glPushMatrix();
       funhouse();
       glPopMatrix();
+      
     }
 
     tempo = tempo + 1;
     if(tempo > 0.0 && tempo < 30.0){
+	  // Loading sound
+	  music.stop();
+      if (!music.openFromFile("sound/som_da_ilha.ogg"))
+		return -1; // error
+	  music.play();
+	  music.setVolume(40);			
+		
       glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(5);
@@ -924,7 +935,7 @@ void animacaoEspelhos(){
       drawZZZ(24.0);
       glPopMatrix();
     }
-    else if(tempo > 420.0 && tempo < 460.0){
+    else if(tempo > 420.0 && tempo < 460.0){		
       glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(26);
@@ -932,11 +943,17 @@ void animacaoEspelhos(){
       glPopMatrix();
     }
     else if(tempo > 460.0 && tempo < 540.0){
+	  music.stop();
+      if (!music.openFromFile("sound/gritos.ogg"))
+		return -1; // error
+	  music.play();
+	  music.setVolume(60);	
+		
       glDisable(GL_LIGHTING);
       glPushMatrix();
       drawEspelho(1);
       funhouse2();
-      glPopMatrix();
+      glPopMatrix();     
     }
     else if(tempo > 540 && tempo < 620){
       glDisable(GL_LIGHTING);
@@ -953,6 +970,7 @@ void animacaoEspelhos(){
       tempo = 0;
     }
 
+	return 0;
 }
 
 void DrawGLScene()
@@ -1023,6 +1041,14 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboardCB);
     glutMouseFunc(MouseClique);
     InitGL(500, 500);
+    
+    // Loading sound
+	//sf::Music music;
+	if (!music.openFromFile("sound/merchant__welcome!.wav"))
+		return -1; // error
+	music.play();
+	music.setVolume(40);
+    
     glutMainLoop();
     return 1;
 }
