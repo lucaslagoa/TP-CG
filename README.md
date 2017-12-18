@@ -5,11 +5,12 @@ Trabalho apresentado ao curso de Ciência da Computação, da Universidade Feder
 Este projeto consiste na implementação de uma animação, utilizando openGL.
 
 ## Dependências
-1: Dependências de Audio = SFML, para isso execute: sudo apt-get install libsfml-dev
+    Dependências de Audio = SFML, para isso execute: 
+    sudo apt-get install libsfml-dev
 
 ## Execução
-1: Utilize o Makefile
-2: ./funHouse     
+    Utilize o Makefile
+    ./funHouse     
 
 ## Saída
 Interface gráfica da Animação.
@@ -17,7 +18,7 @@ Interface gráfica da Animação.
 ### Desenvolvido por:
 Lucas Lagôa
 
-Lucas Felixa
+Lucas Felix
 
 Ricardo Monteiro   
 
