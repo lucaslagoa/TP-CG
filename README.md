@@ -17,7 +17,7 @@ Interface gráfica da Animação.
 ### Desenvolvido por:
 Lucas Lagôa
 
-Lucas Felixa
+Lucas Felix
 
 Ricardo Monteiro   
 
