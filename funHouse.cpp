@@ -944,7 +944,7 @@ int animacaoEspelhos(){
     }
     else if(tempo > 460.0 && tempo < 540.0){
 	  music.stop();
-      if (!music.openFromFile("sound/gritos.ogg"))
+      if (!music.openFromFile("sound/Exorcist-Scream.ogg"))
 		return -1; // error
 	  music.play();
 	  music.setVolume(100);
